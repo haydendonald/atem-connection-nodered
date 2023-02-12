@@ -1,0 +1,36 @@
+
+<!-- Settings Panel -->
+<script type="text/x-red" data-template-name="atem-atem">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-connection"><i class="icon-bookmark"></i> Connection</label>
+        <input type="text" id="node-input-connection">
+    </div>
+</script>
+
+<!-- Register -->
+<script type="text/javascript">
+    RED.nodes.registerType('atem-atem', {
+        category: 'BlackMagic',
+        color: '#6B6B6B',
+        defaults: {
+            name: {value: ""},
+            connection: {value: "", required: true, type: "atem-connection"}
+        },
+        inputs: 1,
+        outputs: 1,
+        align: "right",
+        paletteLabel: "ATEM",
+        icon: "blackmagiclogo.png",
+        label: function() {
+            return this.name||"ATEM";
+        }
+    });
+</script>
+
+<!-- Information Panel -->
+<script type="text/x-red" data-help-name="atem-atem">
+</script>

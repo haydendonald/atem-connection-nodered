@@ -1,0 +1,32 @@
+{
+  "name": "atem-connection-nodered",
+  "version": "0.0.1",
+  "description": "This package provides an interface between BlackMagic ATEM switchers and NodeRed",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:haydendonald/atem-connection-nodered.git"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "node-red",
+    "blackmagic",
+    "black",
+    "magic",
+    "ATEM"
+  ],
+  "node-red": {
+    "nodes": {
+      "ATEMConnection": "./connection.js",
+      "ATEM": "./atem.js"
+    }
+  },
+  "author": "Hayden Donald",
+  "bugs": {
+    "url": "https://github.com/haydendonald/atem-connection-nodered/issues"
+  },
+  "homepage": "https://github.com/haydendonald/atem-connection-nodered#readme",
+  "dependencies": {
+    "atem-connection": "^3.1.3"
+  }
+}
