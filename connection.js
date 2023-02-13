@@ -75,7 +75,7 @@ module.exports = function (RED) {
                     }
                 }
 
-                callback(true);
+                //We don't callback as we don't know if the atem responded in this mode
             }
             //Handle our supported functions
             else {

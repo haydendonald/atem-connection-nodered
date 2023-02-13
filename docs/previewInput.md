@@ -22,3 +22,21 @@
     }
 }
 ```
+## Change the Preview Input
+This will change the preview input on a ME
+```javascript
+{
+    {
+        topic: "previewInput",
+        payload: {
+            ME: 1, //The ME to change on, starting from ME 1
+
+            //The input to set (only one required)
+            inputId: 0, 
+            inputLongName: "input",
+            inputShortName: "in",
+            ////
+        }
+    }
+}
+```

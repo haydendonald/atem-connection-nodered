@@ -22,13 +22,21 @@
     }
 }
 ```
+## Change the Program Input
+This will change the program input on a ME
+```javascript
+{
+    {
+        topic: "programInput",
+        payload: {
+            ME: 1, //The ME to change on, starting from ME 1
 
-
-Todo me
-```
-changePreviewInput
-changeProgramInput
-autoDownstreamKey
-autoTransition
-
+            //The input to set (only one required)
+            inputId: 0, 
+            inputLongName: "input",
+            inputShortName: "in",
+            ////
+        }
+    }
+}
 ```

@@ -10,6 +10,19 @@ This package provides an interface between [BlackMagic ATEM](Blackmagic) switche
 # Input messages
 Below is a list of messages that can be sent to the node:
 
+## Action
+Will call a function to action something on the atem
+```javascript
+{
+    {
+        topic: "previewInput", //The function to call
+        payload: {
+            // The payload to send (see the function for information on this)
+        }
+    }
+}
+```
+
 ## Direct action
 Will call a method directly implemented by [ATEM Connection](https://nrkno.github.io/sofie-atem-connection/classes/Atem.html). Be careful using as this can be problematic, but it is very powerful if used correctly!
 ```javascript
@@ -100,9 +113,6 @@ This message is what is output when a function is supported by this project and 
     }
 }
 ```
-* [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/previewInput.md): The program input for a specific mix effect 
-* [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/programInput.md): The preview input for a specific mix effect 
-
 
 
 # Thanks
