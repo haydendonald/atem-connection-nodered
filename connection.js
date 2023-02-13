@@ -1,38 +1,60 @@
 
-module.exports = function(RED)
-{
+module.exports = function (RED) {
     //Main node definition
-    function ATEMConnection(config)
-    {
+    function ATEMConnection(config) {
         RED.nodes.createNode(this, config);
         const { Atem } = require("atem-connection");
         var node = this;
-        const atem = new Atem({debugBuffers: config.debug == "yes"});
+        const atem = new Atem({ debugBuffers: config.debug == "yes" });
+        const functions = {
+            programInput: require("./functions/programInput.js")
+        };
 
         //Register the available callbacks for the flow nodes
         var errorCallbacks = [];
-        this.addErrorCallback = function(func) { // func(error)
+        this.addErrorCallback = function (func) { // func(error)
             errorCallbacks.push(func);
         }
         var infoCallbacks = [];
-        this.addInfoCallback = function(func) { // func(info)
+        this.addInfoCallback = function (func) { // func(info)
             infoCallbacks.push(func);
         }
         var debugCallbacks = [];
-        this.addDebugCallback = function(func) { // func(debug)
+        this.addDebugCallback = function (func) { // func(debug)
             debugCallbacks.push(func);
         }
         var connectionCallbacks = [];
-        this.addConnectionCallback = function(func) { // func(state)
+        this.addConnectionCallback = function (func) { // func(state)
             connectionCallbacks.push(func);
         }
         var stateChangeCallbacks = [];
-        this.addStateChangeCallback = function(func) { // func(state, pathToChange)
+        this.addStateChangeCallback = function (func) { // func(state, pathToChange)
             stateChangeCallbacks.push(func);
         }
         var commandCallbacks = [];
-        this.addCommandCallback = function(func) { // func(command)
+        this.addCommandCallback = function (func) { // func(command)
             commandCallbacks.push(func);
+        }
+        var functionCallbacks = [];
+        this.addfunctionCallback = function (func) { // func(func, data)
+            functionCallbacks.push(func);
+        }
+
+        //Send a command to a function
+        /**
+         * Send a command to a function
+         * @param {*} func The function name
+         * @param {*} data The data object to send to the function
+         * @param {*} callback The callback function for completion func(success, data)
+         */
+        this.send = function (func, data, callback) {
+            var f = functions[func];
+            if (f) {
+                f.handleFlow(data, callback);
+            }
+            else {
+                errorCallbacks.forEach((func) => func(`The function ${func} was not found`));
+            }
         }
 
         //Register the atem events
@@ -55,7 +77,15 @@ module.exports = function(RED)
             connectionCallbacks.forEach((func) => func("disconnected"));
         });
         atem.on("stateChanged", (state, pathToChange) => {
-            stateChangeCallbacks.forEach((func) => func(state, pathToChange));;
+            stateChangeCallbacks.forEach((func) => func(state, pathToChange));
+            for(var funcName in functions) {
+                if(functions[funcName].handleStateChange != undefined) {
+                    var result = functions[funcName].handleStateChange(state, pathToChange);
+                    if(result != undefined) {
+                        functionCallbacks.forEach((func) => func(funcName, result));
+                    }
+                }
+            }
         });
         atem.on("receivedCommand", (command) => {
             commandCallbacks.forEach((func) => func(command));
@@ -64,7 +94,7 @@ module.exports = function(RED)
         atem.connect(config.ipAddress);
 
         //On redeploy
-        node.on("close", function() {
+        node.on("close", function () {
             atem.disconnect();
         });
     }

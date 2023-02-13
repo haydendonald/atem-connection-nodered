@@ -1,0 +1,26 @@
+/**
+ * Program Input
+ * By Hayden Donald 2023
+ */
+
+module.exports = {
+  object: function() { return {
+    /**
+     * Handle the incoming message from the flow
+     * @param {*} data The data object
+     * @param {*} callback The callback for the completion func(success, data)
+     */
+    handleFlow(data, callback) {
+        
+    },
+
+    handleStateChange(state, pathToChange) {
+        return undefined;
+    },
+
+    //When node red closes
+    close() {},
+
+
+  }}
+}
