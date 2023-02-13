@@ -1,3 +1,13 @@
+##  Get the state of the ATEM
+This will return the current state of a mix effect block
+```javascript
+{
+    {
+        topic: "getState",
+        payload: {}
+    }
+}
+```
 ##  Get the state of a mix efect block
 This will return the current state of a mix effect block
 ```javascript
