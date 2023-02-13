@@ -10,8 +10,6 @@ module.exports = function (RED) {
             programInput: require("./functions/programInput.js")()
         };
 
-        console.log(functions);
-
         //Register the available callbacks for the flow nodes
         var errorCallbacks = [];
         this.addErrorCallback = function (func) { // func(error)
@@ -80,6 +78,13 @@ module.exports = function (RED) {
         });
         atem.on("stateChanged", (state, pathToChange) => {
             stateChangeCallbacks.forEach((func) => func(state, pathToChange));
+
+            //Convert a string pathToChange to array if needed
+            if(!Array.isArray(pathToChange)) {
+                pathToChange = [pathToChange];
+            }
+
+            //Send to the functions to see if they can handle the request
             for(var funcName in functions) {
                 var result = functions[funcName].handleStateChange(state, pathToChange);
                 if(result != undefined) {

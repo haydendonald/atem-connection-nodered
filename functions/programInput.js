@@ -15,13 +15,22 @@ module.exports = function () {
         },
 
         handleStateChange(state, pathToChange) {
-            if (pathToChange.includes("video.mixEffects")) {
-                return state;
+            //See if our path is included
+            for(i in pathToChange) {
+                if(pathToChange[i].includes("video.mixEffects") && pathToChange[i].includes(".programInput")) {
+                    return {
+                        ME: state.video.mixEffects[pathToChange[i].split('.')[2]],
+                    }
+
+
+
+                    // var ME = 
+                    // var state = state.video.mixEffects[ME];
+                    // state.ME = ME;
+                    // state.pathToChange = pathToChange[i];
+                    // return ret;
+                }
             }
-
-
-
-
 
             return undefined;
         },
