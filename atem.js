@@ -47,14 +47,14 @@ module.exports = function (RED) {
     });
 
     //Function events
-    connection.addFunctionCallback((func, data, state) => {
+    connection.addFunctionCallback((func, data, state, pathToChange) => {
       node.send({
         topic: "function",
         payload: {
           function: func,
           data,
           state,
-          pathToChange: data.pathToChange
+          pathToChange
         }
       });
     });

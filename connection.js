@@ -7,7 +7,7 @@ module.exports = function (RED) {
         var node = this;
         const atem = new Atem({ debugBuffers: config.debug == "yes" });
         const functions = {
-            programInput: require("./functions/programInput.js")()
+            mixEffects: require("./functions/mixEffects.js")()
         };
 
         //Register the available callbacks for the flow nodes
@@ -77,18 +77,61 @@ module.exports = function (RED) {
             connectionCallbacks.forEach((func) => func("disconnected"));
         });
         atem.on("stateChanged", (state, pathToChange) => {
+            //Go through the mix effects and replace the inputs with their objects
+            for (var i in state.video.mixEffects) {
+                state.video.mixEffects[i].programInput = state.inputs[state.video.mixEffects[i].programInput] || state.video.mixEffects[i].programInput;
+                state.video.mixEffects[i].previewInput = state.inputs[state.video.mixEffects[i].previewInput] || state.video.mixEffects[i].previewInput;
+
+                //Keyers
+                for (var j in state.video.mixEffects[i].upstreamKeyers) {
+                    state.video.mixEffects[i].upstreamKeyers[j].cutSource = state.inputs[state.video.mixEffects[i].upstreamKeyers[j].cutSource] || state.video.mixEffects[i].upstreamKeyers[j].cutSource;
+                    state.video.mixEffects[i].upstreamKeyers[j].fillSource = state.inputs[state.video.mixEffects[i].upstreamKeyers[j].fillSource] || state.video.mixEffects[i].upstreamKeyers[j].fillSource;
+                }
+            }
+
+            //Go through the dsKeyers and replace the inputs with their objects
+            for (var i in state.video.downstreamKeyers) {
+                state.video.downstreamKeyers[i].sources.fillSource = state.inputs[state.video.downstreamKeyers[i].sources.fillSource] || state.video.downstreamKeyers[i].sources.fillSource;
+                state.video.downstreamKeyers[i].sources.cutSource = state.inputs[state.video.downstreamKeyers[i].sources.cutSource] || state.video.downstreamKeyers[i].sources.cutSource;
+            }
+
+            //Go through the aux's and replace the inputs with their objects
+            for (var i in state.video.auxilliaries) {
+                state.video.auxilliaries[i] = state.inputs[state.video.auxilliaries[i]] || state.video.auxilliaries[i];
+            }
+
+            //Go through the super sources and replace the inputs with their objects
+            for (var i in state.video.superSources) {
+                state.video.superSources[i].properties.artFillSource = state.inputs[state.video.superSources[i].properties.artFillSource] || state.video.superSources[i].properties.artFillSource;
+                state.video.superSources[i].properties.artCutSource = state.inputs[state.video.superSources[i].properties.artCutSource] || state.video.superSources[i].properties.artCutSource;
+
+                //Boxes
+                for (var j in state.video.superSources[i].boxes) {
+                    state.video.superSources[i].boxes[j].source = state.inputs[state.video.superSources[i].boxes[j].source] || state.video.superSources[i].boxes[j].source;
+                }
+            }
+
+            //Go through the multiViewers and replace the inputs with their objects
+            for (var i in state.settings.multiViewers) {
+                for (var j in state.settings.multiViewers[i].windows) {
+                    state.settings.multiViewers[i].windows.source = state.inputs[state.settings.multiViewers[i].windows.source] || state.settings.multiViewers[i].windows.source;
+                }
+            }
+
             stateChangeCallbacks.forEach((func) => func(state, pathToChange));
 
             //Convert a string pathToChange to array if needed
-            if(!Array.isArray(pathToChange)) {
+            if (!Array.isArray(pathToChange)) {
                 pathToChange = [pathToChange];
             }
 
             //Send to the functions to see if they can handle the request
-            for(var funcName in functions) {
-                var result = functions[funcName].handleStateChange(state, pathToChange);
-                if(result != undefined) {
-                    functionCallbacks.forEach((func) => func(funcName, result, state, pathToChange));
+            for (var funcName in functions) {
+                for (i in pathToChange) {
+                    var result = functions[funcName].handleStateChange(state, pathToChange[i]);
+                    if (result != undefined) {
+                        functionCallbacks.forEach((func) => func(result.func, result.data, state, pathToChange[i]));
+                    }
                 }
             }
         });
