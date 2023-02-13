@@ -27,7 +27,7 @@ This will change the preview input on a ME
 ```javascript
 {
     {
-        topic: "previewInput",
+        topic: "changePreviewInput",
         payload: {
             ME: 1, //The ME to change on, starting from ME 1
 

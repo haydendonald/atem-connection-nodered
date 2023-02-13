@@ -43,13 +43,13 @@ module.exports = function (RED) {
         //Send a command to a function
         /**
          * Send a command to a function
-         * @param {*} func The function name
+         * @param {*} funcName The function name
          * @param {*} payload The payload object to send to the function
          * @param {*} callback The callback function for completion func(success, payload)
          */
-        this.send = function (func, payload, callback) {
+        this.send = function (funcName, payload, callback) {
             //Attempt to perform a direct action to the atem
-            if (func == "directAction") {
+            if (funcName == "directAction") {
                 if (atem[payload.function] === undefined) {
                     node.error(`Direct action "${payload.function}" was not found`);
                     callback(false);
@@ -79,13 +79,12 @@ module.exports = function (RED) {
             }
             //Handle our supported functions
             else {
-                var f = functions[func];
-                if (f) {
-                    f.handleFlow(data, callback);
+                for(var f in functions) {
+                    if(functions[f].handleFlow(atem, funcName, payload, callback)) {
+                        return;
+                    }
                 }
-                else {
-                    errorCallbacks.forEach((func) => func(`The function ${func} was not found`));
-                }
+                node.error(`The function "${funcName}" was not found`);
             }
         }
 

@@ -27,7 +27,7 @@ This will change the program input on a ME
 ```javascript
 {
     {
-        topic: "programInput",
+        topic: "changeProgramInput",
         payload: {
             ME: 1, //The ME to change on, starting from ME 1
 

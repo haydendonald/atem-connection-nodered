@@ -90,7 +90,8 @@ module.exports = function (RED) {
           });
         }
         else {
-          node.status({ fill: "orange", shape: "dot", text: "There was a problem" });
+          node.status({ fill: "red", shape: "dot", text: `There was a problem` });
+          node.error(`There was a problem: ${payload}`);
         }
       });
     });
