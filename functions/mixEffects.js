@@ -22,7 +22,7 @@ module.exports = function () {
                         return true;
                     }
                     if(!Number.isInteger(payload.ME) || payload.ME <= 0) {
-                        callback(false, "The ME parameter must be an integer starting from 1");
+                        callback(false, "The ME parameter must be an integer starting from 0");
                         return true;
                     }
                     if(payload.inputId) {
@@ -56,14 +56,14 @@ module.exports = function () {
 
                     //Execute
                     if(func == "changePreviewInput") {
-                        atem.changePreviewInput(inputId, payload.ME - 1).then(() => {
+                        atem.changePreviewInput(inputId, payload.ME).then(() => {
                             callback(true, atem.state);
                         }).catch(() => {
                             callback(false);
                         });
                     }
                     else {
-                        atem.changeProgramInput(inputId, payload.ME - 1).then(() => {
+                        atem.changeProgramInput(inputId, payload.ME).then(() => {
                             callback(true, atem.state);
                         }).catch(() => {
                             callback(false);

@@ -29,7 +29,7 @@ This will change the program input on a ME
     {
         topic: "changeProgramInput",
         payload: {
-            ME: 1, //The ME to change on, starting from ME 1
+            ME: 1, //The ME to change on, starting from ME 0
 
             //The input to set (only one required)
             inputId: 0, 
