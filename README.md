@@ -13,8 +13,8 @@ Below is a list of messages that can be sent out by the node:
 ```javascript
 {
     {
-        "topic": "connection",
-        "payload": "connected/disconnected"
+        topic: "connection",
+        payload: "connected/disconnected"
     }
 }
 ```
@@ -24,8 +24,8 @@ Below is a list of messages that can be sent out by the node:
 ```javascript
 {
     {
-        "topic": "info/error/debug/command",
-        "payload": "" //The message
+        topic: "info/error/debug/command",
+        payload: "" //The message
     }
 }
 ```
@@ -35,14 +35,38 @@ Below is a list of messages that can be sent out by the node:
 ```javascript
 {
     {
-        "topic": "stateChanged",
-        "state": {} //The state object
-        "pathToChange": "" //The path
+        topic: "stateChanged",
+        payload: {
+            state: {} //The state object
+            pathToChange: "" //The path
+        }
     }
 }
 
 
 ```
+
+## Function Changed Example
+This message is what is output when a function is supported by this project and has been translated. See the specific supported functions below.
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "previewInput", // The function
+            data: { // The specific data from the function
+                ME: {} // The mix effect block
+                input: {} // The input that was selected
+            }, 
+            state: {}, // The state object
+            pathToChange: "video.mixEffects.1.previewInput" // Where the change came from specifically
+        }
+    }
+}
+```
+* [Program Input](): The program input for a specific mix effect 
+* [Preview Input](): The preview input for a specific mix effect 
+
 
 
 # Thanks

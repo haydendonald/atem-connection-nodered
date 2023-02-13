@@ -20,7 +20,7 @@ module.exports = function () {
                 func: "programInput",
                 data: {
                     ME: state.video.mixEffects[pathToChange.split('.')[2]],
-                    programInput: state.video.mixEffects[pathToChange.split('.')[2]].programInput
+                    input: state.video.mixEffects[pathToChange.split('.')[2]].programInput
                 }
             }
         },
@@ -31,7 +31,7 @@ module.exports = function () {
                 func: "previewInput",
                 data: {
                     ME: state.video.mixEffects[pathToChange.split('.')[2]],
-                    previewInput: state.video.mixEffects[pathToChange.split('.')[2]].previewInput
+                    input: state.video.mixEffects[pathToChange.split('.')[2]].previewInput
                 }
             }
         },
