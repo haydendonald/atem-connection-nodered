@@ -79,11 +79,9 @@ module.exports = function (RED) {
         atem.on("stateChanged", (state, pathToChange) => {
             stateChangeCallbacks.forEach((func) => func(state, pathToChange));
             for(var funcName in functions) {
-                if(functions[funcName].handleStateChange != undefined) {
-                    var result = functions[funcName].handleStateChange(state, pathToChange);
-                    if(result != undefined) {
-                        functionCallbacks.forEach((func) => func(funcName, result));
-                    }
+                var result = functions[funcName].handleStateChange(state, pathToChange);
+                if(result != undefined) {
+                    functionCallbacks.forEach((func) => func(funcName, result));
                 }
             }
         });
@@ -100,5 +98,5 @@ module.exports = function (RED) {
     }
 
     //Add the node
-    RED.nodes.registerType("atem-connection", ATEMConnection);
+    RED.nodes.registerType("atem-connection-connection", ATEMConnection);
 }

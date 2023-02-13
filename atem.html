@@ -1,6 +1,6 @@
 
 <!-- Settings Panel -->
-<script type="text/x-red" data-template-name="atem-atem">
+<script type="text/x-red" data-template-name="atem-connection-atem">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -13,12 +13,12 @@
 
 <!-- Register -->
 <script type="text/javascript">
-    RED.nodes.registerType('atem-atem', {
+    RED.nodes.registerType('atem-connection-atem', {
         category: 'BlackMagic',
         color: '#6B6B6B',
         defaults: {
             name: {value: ""},
-            connection: {value: "", required: true, type: "atem-connection"}
+            connection: {value: "", required: true, type: "atem-connection-connection"}
         },
         inputs: 1,
         outputs: 1,
@@ -32,5 +32,5 @@
 </script>
 
 <!-- Information Panel -->
-<script type="text/x-red" data-help-name="atem-atem">
+<script type="text/x-red" data-help-name="atem-connection-atem">
 </script>

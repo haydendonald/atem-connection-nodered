@@ -70,5 +70,5 @@ module.exports = function (RED) {
     node.on("input", function (msg) { });
   }
 
-  RED.nodes.registerType("atem-atem", ATEM);
+  RED.nodes.registerType("atem-connection-atem", ATEM);
 }
