@@ -114,7 +114,7 @@ module.exports = function (RED) {
             //Go through the multiViewers and replace the inputs with their objects
             for (var i in state.settings.multiViewers) {
                 for (var j in state.settings.multiViewers[i].windows) {
-                    state.settings.multiViewers[i].windows.source = state.inputs[state.settings.multiViewers[i].windows.source] || state.settings.multiViewers[i].windows.source;
+                    state.settings.multiViewers[i].windows[j].source = state.inputs[state.settings.multiViewers[i].windows[j].source] || state.settings.multiViewers[i].windows[j].source;
                 }
             }
 
