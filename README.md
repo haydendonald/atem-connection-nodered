@@ -4,6 +4,8 @@ This package provides an interface between [BlackMagic ATEM](Blackmagic) switche
 
 # What's Supported?
 * Direct control with [ATEM Connection](https://github.com/nrkno/sofie-atem-connection) with topics like stateChanged
+* [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/previewInput.md): The program input for a specific mix effect 
+* [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/programInput.md): The preview input for a specific mix effect 
 
 # Output Messages
 Below is a list of messages that can be sent out by the node:
