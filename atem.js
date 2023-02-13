@@ -80,7 +80,20 @@ module.exports = function (RED) {
 
     node.status({ fill: "orange", shape: "dot", text: "Connecting..." });
     node.on("close", function () { });
-    node.on("input", function (msg) { });
+    node.on("input", function (msg) {
+      connection.send(msg.topic, msg.payload, function (success, payload) {
+        if (success) {
+          node.status({ fill: "green", shape: "dot", text: "Sent!" });
+          node.send({
+            topic: "response",
+            payload
+          });
+        }
+        else {
+          node.status({ fill: "orange", shape: "dot", text: "There was a problem" });
+        }
+      });
+    });
   }
 
   RED.nodes.registerType("atem-connection-atem", ATEM);

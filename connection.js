@@ -44,16 +44,48 @@ module.exports = function (RED) {
         /**
          * Send a command to a function
          * @param {*} func The function name
-         * @param {*} data The data object to send to the function
-         * @param {*} callback The callback function for completion func(success, data)
+         * @param {*} payload The payload object to send to the function
+         * @param {*} callback The callback function for completion func(success, payload)
          */
-        this.send = function (func, data, callback) {
-            var f = functions[func];
-            if (f) {
-                f.handleFlow(data, callback);
+        this.send = function (func, payload, callback) {
+            //Attempt to perform a direct action to the atem
+            if (func == "directAction") {
+                if (atem[payload.function] === undefined) {
+                    node.error(`Direct action "${payload.function}" was not found`);
+                    callback(false);
+                    return;
+                }
+
+                //This is, yes... Please scroll down..
+                var p = payload.parameters;
+                switch (p.length) {
+                    case 0: atem[payload.function](); break;
+                    case 1: atem[payload.function](p[0]); break;
+                    case 2: atem[payload.function](p[0], p[1]); break;
+                    case 3: atem[payload.function](p[0], p[1], p[2]); break;
+                    case 4: atem[payload.function](p[0], p[1], p[2], p[3]); break;
+                    case 5: atem[payload.function](p[0], p[1], p[2], p[3], p[4]); break;
+                    case 6: atem[payload.function](p[0], p[1], p[2], p[3], p[4], p[5]); break;
+                    case 7: atem[payload.function](p[0], p[1], p[2], p[3], p[4], p[5], p[6]); break;
+                    case 8: atem[payload.function](p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]); break;
+                    case 9: atem[payload.function](p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]); break;
+                    case 10: atem[payload.function](p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]); break;
+                    default: {
+                        node.error("Sorry the direct action command only supports upto 10 arguments");
+                    }
+                }
+
+                callback(true);
             }
+            //Handle our supported functions
             else {
-                errorCallbacks.forEach((func) => func(`The function ${func} was not found`));
+                var f = functions[func];
+                if (f) {
+                    f.handleFlow(data, callback);
+                }
+                else {
+                    errorCallbacks.forEach((func) => func(`The function ${func} was not found`));
+                }
             }
         }
 

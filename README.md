@@ -7,7 +7,26 @@ This package provides an interface between [BlackMagic ATEM](Blackmagic) switche
 * [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/previewInput.md): The program input for a specific mix effect 
 * [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/programInput.md): The preview input for a specific mix effect 
 
-# Output Messages
+# Input messages
+Below is a list of messages that can be sent to the node:
+
+## Direct action
+Will call a method directly implemented by [ATEM Connection](https://nrkno.github.io/sofie-atem-connection/classes/Atem.html). Be careful using as this can be problematic, but it is very powerful if used correctly!
+```javascript
+//Example setting upstream keyer 1 on me 0 on air
+//https://nrkno.github.io/sofie-atem-connection/classes/Atem.html#setUpstreamKeyerOnAir
+{
+    {
+        topic: "directAction",
+        payload: {
+            function: "setUpstreamKeyerOnAir",
+            parameters: [true, 0, 1]
+        }
+    }
+}
+```
+
+# Output messages
 Below is a list of messages that can be sent out by the node:
 
 ## Connection State
@@ -41,6 +60,19 @@ Below is a list of messages that can be sent out by the node:
         payload: {
             state: {} //The state object
             pathToChange: "" //The path
+        }
+    }
+}
+```
+
+## Responses
+
+```javascript
+{
+    {
+        topic: "response",
+        payload: {
+            //The response
         }
     }
 }
