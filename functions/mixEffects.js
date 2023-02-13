@@ -22,7 +22,7 @@ module.exports = function () {
                         callback(false, "The ME parameter was missing");
                         return true;
                     }
-                    if (!Number.isInteger(payload.ME) || payload.ME <= 0) {
+                    if (!Number.isInteger(payload.ME) || payload.ME < 0) {
                         callback(false, "The ME parameter must be an integer starting from 0");
                         return true;
                     }
@@ -80,7 +80,7 @@ module.exports = function () {
                         callback(false, "The ME parameter was missing");
                         return true;
                     }
-                    if (!Number.isInteger(payload.ME) || payload.ME <= 0) {
+                    if (!Number.isInteger(payload.ME) || payload.ME < 0) {
                         callback(false, "The ME parameter must be an integer starting from 0");
                         return true;
                     }
