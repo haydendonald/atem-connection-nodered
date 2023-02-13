@@ -64,8 +64,8 @@ This message is what is output when a function is supported by this project and 
     }
 }
 ```
-* [Program Input](): The program input for a specific mix effect 
-* [Preview Input](): The preview input for a specific mix effect 
+* [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/previewInput.md): The program input for a specific mix effect 
+* [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/programInput.md): The preview input for a specific mix effect 
 
 
 
