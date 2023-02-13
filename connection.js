@@ -7,8 +7,10 @@ module.exports = function (RED) {
         var node = this;
         const atem = new Atem({ debugBuffers: config.debug == "yes" });
         const functions = {
-            programInput: require("./functions/programInput.js")
+            programInput: require("./functions/programInput.js")()
         };
+
+        console.log(functions);
 
         //Register the available callbacks for the flow nodes
         var errorCallbacks = [];
