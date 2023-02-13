@@ -36,7 +36,7 @@ module.exports = function (RED) {
             commandCallbacks.push(func);
         }
         var functionCallbacks = [];
-        this.addfunctionCallback = function (func) { // func(func, data)
+        this.addFunctionCallback = function (func) { // func(func, data)
             functionCallbacks.push(func);
         }
 
@@ -81,7 +81,7 @@ module.exports = function (RED) {
             for(var funcName in functions) {
                 var result = functions[funcName].handleStateChange(state, pathToChange);
                 if(result != undefined) {
-                    functionCallbacks.forEach((func) => func(funcName, result));
+                    functionCallbacks.forEach((func) => func(funcName, result, state, pathToChange));
                 }
             }
         });

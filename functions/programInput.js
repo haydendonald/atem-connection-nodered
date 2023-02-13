@@ -11,10 +11,18 @@ module.exports = {
      * @param {*} callback The callback for the completion func(success, data)
      */
     handleFlow(data, callback) {
-        
+
     },
 
     handleStateChange(state, pathToChange) {
+        if(pathToChange.includes("video.mixEffects")) {
+            return state;
+        }
+
+
+
+
+
         return undefined;
     },
 

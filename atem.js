@@ -46,6 +46,18 @@ module.exports = function (RED) {
       });
     });
 
+    //Function events
+    connection.addFunctionCallback((func, data, state, pathToChange) => {
+      node.send({
+        topic: func,
+        payload: {
+          data,
+          state,
+          pathToChange
+        }
+      });
+    });
+
     //Connection events
     connection.addConnectionCallback((state) => {
       switch (state) {
