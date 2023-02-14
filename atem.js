@@ -81,17 +81,14 @@ module.exports = function (RED) {
     node.status({ fill: "orange", shape: "dot", text: "Connecting..." });
     node.on("close", function () { });
     node.on("input", function (msg) {
-      connection.send(msg.topic, msg.payload, function (success, payload) {
+      connection.send(msg.topic, msg.payload, function (success, msg) {
         if (success) {
           node.status({ fill: "green", shape: "dot", text: "Sent!" });
-          node.send({
-            topic: "response",
-            payload
-          });
+          node.send(msg);
         }
         else {
           node.status({ fill: "red", shape: "dot", text: `There was a problem` });
-          node.error(`There was a problem: ${payload}`);
+          node.error(`There was a problem: ${msg}`);
         }
       });
     });

@@ -1,15 +1,3 @@
-/**
- * Handles the functions of the mix effect block
- * By Hayden Donald 2023
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
-
 module.exports = function () {
     return {
         /**
@@ -20,125 +8,74 @@ module.exports = function () {
          * @param {*} callback The callback for the completion func(success, data)
          */
         handleFlow(atem, func, payload, callback) {
-            switch(func) {
+            switch (func) {
                 case "macroRun": {
-                    break;
+                    //Find the macro id
+                    var Id;
+                    if (payload.macroId !== undefined) { Id = payload.macroId; }
+                    else if (payload.macroName !== undefined) {
+                        for (var i in atem.state.macro.macroProperties) {
+                            if (atem.state.macro.macroProperties[i].macroName == payload.macroName) { Id = parseInt(i); break; }
+                        }
+                    }
+                    else {
+                        callback(false, "The macro was missing, macroId, macroName is required");
+                        return true;
+                    }
+                    if (Id === undefined) {
+                        callback(false, "The macro was not found");
+                        return true;
+                    }
+
+                    //Execute
+                    atem.macroRun(Id).then(() => {
+                        callback(true, `macro ${id} ran`);
+                    }).catch(() => {
+                        callback(false);
+                    });
+
+                    return true;
                 }
                 case "macroContinue": {
-                    break;
+                    atem.macroContinue().then(() => {
+                        callback(true, "macro continued");
+                    }).catch(() => {
+                        callback(false);
+                    });
+                    return true;
                 }
                 case "macroStop": {
-                    break;
+                    atem.macroStop().then(() => {
+                        callback(true, "macro stopped");
+                    }).catch(() => {
+                        callback(false);
+                    });
+                    return true;
                 }
             }
-
-
-
-
-            // switch (func) {
-            //     //Set the preview/program input
-            //     case "changePreviewInput":
-            //     case "changeProgramInput": {
-            //         //Validate
-            //         if (payload.ME === undefined) {
-            //             callback(false, "The ME parameter was missing");
-            //             return true;
-            //         }
-            //         if (!Number.isInteger(payload.ME) || payload.ME < 0) {
-            //             callback(false, "The ME parameter must be an integer starting from 0");
-            //             return true;
-            //         }
-            //         if (payload.inputId) {
-            //             if (!Number.isInteger(payload.inputId) || payload.inputId < 0) {
-            //                 callback(false, "The ME parameter must be an integer starting from 0");
-            //                 return true;
-            //             }
-            //         }
-
-            //         //Find the input id
-            //         var inputId;
-            //         if (payload.inputId !== undefined) { inputId = payload.inputId; }
-            //         else if (payload.inputLongName !== undefined) {
-            //             for (var i in atem.state.inputs) {
-            //                 if (atem.state.inputs[i].longName == payload.inputLongName) { inputId = parseInt(i); break; }
-            //             }
-            //         }
-            //         else if (payload.inputShortName !== undefined) {
-            //             for (var i in atem.state.inputs) {
-            //                 if (atem.state.inputs[i].shortName == payload.inputShortName) { inputId = parseInt(i); break; }
-            //             }
-            //         }
-            //         else {
-            //             callback(false, "The input was missing, inputId, inputLongName, or inputShortName is required");
-            //             return true;
-            //         }
-            //         if (inputId === undefined) {
-            //             callback(false, "The input was not found");
-            //             return true;
-            //         }
-
-            //         //Execute
-            //         if (func == "changePreviewInput") {
-            //             atem.changePreviewInput(inputId, payload.ME).then(() => {
-            //                 callback(true, atem.state);
-            //             }).catch(() => {
-            //                 callback(false);
-            //             });
-            //         }
-            //         else {
-            //             atem.changeProgramInput(inputId, payload.ME).then(() => {
-            //                 callback(true, atem.state);
-            //             }).catch(() => {
-            //                 callback(false);
-            //             });
-            //         }
-
-            //         return true;
-            //     }
-            //     //Get a mix effect block's current state
-            //     case "getMixEffectBlock": {
-            //         //Validate
-            //         if (payload.ME === undefined) {
-            //             callback(false, "The ME parameter was missing");
-            //             return true;
-            //         }
-            //         if (!Number.isInteger(payload.ME) || payload.ME < 0) {
-            //             callback(false, "The ME parameter must be an integer starting from 0");
-            //             return true;
-            //         }
-
-            //         callback(true, {
-            //             func: "getMixEffectBlock",
-            //             data: atem.state.video.mixEffects[payload.ME]
-            //         });
-
-            //         return true;
-            //     }
-            // }
         },
 
         //Handle an incoming state change
         handleStateChange(state, pathToChange) {
-            // if (pathToChange.includes("video.mixEffects")) {
-            //     if (pathToChange.includes(".programInput")) {
-            //         return {
-            //             func: "programInput",
-            //             data: {
-            //                 ME: state.video.mixEffects[pathToChange.split('.')[2]],
-            //                 input: state.video.mixEffects[pathToChange.split('.')[2]].programInput
-            //             }
-            //         }
-            //     }
-            //     if (pathToChange.includes(".previewInput")) {
-            //         return {
-            //             func: "previewInput",
-            //             data: {
-            //                 ME: state.video.mixEffects[pathToChange.split('.')[2]],
-            //                 input: state.video.mixEffects[pathToChange.split('.')[2]].previewInput
-            //             }
-            //         }
-            //     }
-            // }
+            if (pathToChange.includes("macro")) {
+                if (pathToChange.includes(".macroProperties")) {
+                    var data = state.macro.macroProperties[pathToChange.split('.')[2]];
+                    data.macroId = pathToChange.split('.')[2];
+                    return {
+                        func: "macroProperties",
+                        data
+                    }
+                }
+                else if (pathToChange.includes(".macroPlayer")) {
+                    var data = state.macro.macroPlayer;
+                    data.notes = "As of development, this doesn't seem to work correctly in the atem-connection project but it's implemented here incase they fix it";
+                    data.macro = state.macro.macroPlayer[state.macro.macroPlayer.macroIndex];
+                    return {
+                        func: "macroStatus",
+                        data
+                    }
+                }
+            }
         },
 
         //When node red closes

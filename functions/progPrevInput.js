@@ -58,14 +58,14 @@ module.exports = function () {
                     //Execute
                     if (func == "changePreviewInput") {
                         atem.changePreviewInput(inputId, payload.ME).then(() => {
-                            callback(true, atem.state);
+                            callback(true, {});
                         }).catch(() => {
                             callback(false);
                         });
                     }
                     else {
                         atem.changeProgramInput(inputId, payload.ME).then(() => {
-                            callback(true, atem.state);
+                            callback(true, {});
                         }).catch(() => {
                             callback(false);
                         });

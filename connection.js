@@ -7,7 +7,8 @@ module.exports = function (RED) {
         var node = this;
         const atem = new Atem({ debugBuffers: config.debug == "yes" });
         const functions = {
-            progPrevInput: require("./functions/progPrevInput.js")()
+            progPrevInput: require("./functions/progPrevInput.js")(),
+            macro: require("./functions/macro.js")()
         };
 
         //Register the available callbacks for the flow nodes
@@ -87,7 +88,14 @@ module.exports = function (RED) {
             //Handle our supported functions
             else {
                 for(var f in functions) {
-                    if(functions[f].handleFlow(atem, funcName, payload, callback)) {
+                    if(functions[f].handleFlow(atem, funcName, payload, (success, payload) => {
+                        callback(success, {
+                            topic: "response",
+                            success,
+                            payload,
+                            state: atem.state
+                        });
+                    })) {
                         return;
                     }
                 }
