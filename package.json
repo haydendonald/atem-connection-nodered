@@ -1,6 +1,6 @@
 {
   "name": "atem-connection-nodered",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "This package provides an interface between BlackMagic ATEM switchers and NodeRed",
   "main": "",
   "repository": {

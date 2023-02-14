@@ -137,11 +137,10 @@ setDownstreamKeyCutSource
 setDownstreamKeyFillSource
 setDownstreamKeyOnAir
 
-autoTransition
-cut
-fadeToBlack
-setTransitionPosition
-setTransitionStyle
+autoTransition ✅
+cut ✅
+fadeToBlack ✅
+setTransitionPosition ✅
 
 macroRun ✅
 macroContinue ✅
