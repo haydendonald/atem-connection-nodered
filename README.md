@@ -118,3 +118,39 @@ This message is what is output when a function is supported by this project and 
 
 # Thanks
 [ATEM Connection](https://github.com/nrkno/sofie-atem-connection) project by [Norsk rikskringkasting (NRK)](https://github.com/nrkno) which provides the connection to the ATEM.
+
+
+
+# Aims!
+Here is a list of things i want to add:
+```
+autoDownstreamKey
+setDownstreamKeyCutSource
+setDownstreamKeyFillSource
+setDownstreamKeyOnAir
+
+autoTransition
+cut
+fadeToBlack
+setTransitionPosition
+setTransitionStyle
+
+macroRun
+macroContinue
+macroStop
+
+changePreviewInput ✅
+changeProgramInput ✅
+
+setAuxSource
+
+setUpstreamKeyerCutSource
+setUpstreamKeyerFillSource
+setUpstreamKeyerOnAir 
+
+
+startRecording
+startStreaming
+stopRecording
+stopStreaming
+```

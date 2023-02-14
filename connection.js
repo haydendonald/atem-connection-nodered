@@ -7,7 +7,7 @@ module.exports = function (RED) {
         var node = this;
         const atem = new Atem({ debugBuffers: config.debug == "yes" });
         const functions = {
-            mixEffects: require("./functions/mixEffects.js")()
+            progPrevInput: require("./functions/progPrevInput.js")()
         };
 
         //Register the available callbacks for the flow nodes

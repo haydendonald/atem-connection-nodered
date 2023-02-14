@@ -1,5 +1,5 @@
 /**
- * The mix effects handler
+ * Handles the program/preview inputs
  * By Hayden Donald 2023
  */
 
