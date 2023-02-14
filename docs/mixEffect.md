@@ -96,6 +96,29 @@ This will set a transition position to a ME
 
 
 # Output
+## Mix Effects
+Will output when the function is not known but is related to a mix effect block
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "mixEffects",
+            data: {
+                ME: {
+                    //The ME
+                }
+            }, 
+            state: {
+                // The state object
+            }, 
+            pathToChange: "" // Where the change came from specifically
+        }
+    }
+}
+```
+
+
 ## Program Input
 ```javascript
 {
@@ -139,6 +162,55 @@ This will set a transition position to a ME
                 // The state object
             }, 
             pathToChange: "video.mixEffects.1.previewInput" // Where the change came from specifically
+        }
+    }
+}
+```
+
+## Transition Position
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "transitionPosition",
+            data: {
+                ME: {
+                    //The ME
+                },
+                inTransition: true/false,
+                remainingFrames: 0,
+                handlePosition: 0
+            }, 
+            state: {
+                // The state object
+            }, 
+            pathToChange: "" // Where the change came from specifically
+        }
+    }
+}
+```
+
+## Fade To Black
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "fadeToBlack",
+            data: {
+                ME: {
+                    //The ME
+                },
+                rate: 0,
+                isFullyBlack: true/false,
+                inTransition: true/false,
+                remainingFrames: 0
+            }, 
+            state: {
+                // The state object
+            }, 
+            pathToChange: "" // Where the change came from specifically
         }
     }
 }

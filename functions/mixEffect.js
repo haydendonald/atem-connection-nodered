@@ -187,6 +187,7 @@ module.exports = function () {
                 }
                 if (pathToChange.includes(".transitionPosition")) {
                     var data = state.video.mixEffects[pathToChange.split('.')[2]].transitionPosition;
+                    data.ME = state.video.mixEffects[pathToChange.split('.')[2]];
                     return {
                         func: "transitionPosition",
                         data
@@ -194,6 +195,7 @@ module.exports = function () {
                 }
                 if (pathToChange.includes(".fadeToBlack")) {
                     var data = state.video.mixEffects[pathToChange.split('.')[2]].fadeToBlack;
+                    data.ME = state.video.mixEffects[pathToChange.split('.')[2]];
                     return {
                         func: "fadeToBlack",
                         data
