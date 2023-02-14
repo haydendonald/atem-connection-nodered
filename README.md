@@ -141,9 +141,9 @@ fadeToBlack
 setTransitionPosition
 setTransitionStyle
 
-macroRun
-macroContinue
-macroStop
+macroRun ✅
+macroContinue ✅
+macroStop ✅
 
 changePreviewInput ✅
 changeProgramInput ✅
