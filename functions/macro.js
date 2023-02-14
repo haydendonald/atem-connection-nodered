@@ -29,9 +29,9 @@ module.exports = function () {
 
                     //Execute
                     atem.macroRun(Id).then(() => {
-                        callback(true, `macro ${id} ran`);
-                    }).catch(() => {
-                        callback(false);
+                        callback(true, `macro ${Id} ran`);
+                    }).catch((e) => {
+                        callback(false, `Failed to run macro ${Id}: ${e}`);
                     });
 
                     return true;
@@ -39,16 +39,16 @@ module.exports = function () {
                 case "macroContinue": {
                     atem.macroContinue().then(() => {
                         callback(true, "macro continued");
-                    }).catch(() => {
-                        callback(false);
+                    }).catch((e) => {
+                        callback(false, `Failed to continue macro: ${e}`);
                     });
                     return true;
                 }
                 case "macroStop": {
                     atem.macroStop().then(() => {
                         callback(true, "macro stopped");
-                    }).catch(() => {
-                        callback(false);
+                    }).catch((e) => {
+                        callback(false, `Failed to stop macro: ${e}`);
                     });
                     return true;
                 }

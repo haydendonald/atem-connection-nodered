@@ -58,16 +58,16 @@ module.exports = function () {
                     //Execute
                     if (func == "changePreviewInput") {
                         atem.changePreviewInput(inputId, payload.ME).then(() => {
-                            callback(true, {});
-                        }).catch(() => {
-                            callback(false);
+                            callback(true, `Preview input changed on ME ${payload.ME} to input ${inputId}`);
+                        }).catch((e) => {
+                            callback(false, `Failed to set preview input on ME ${payload.ME} to input ${inputId}: ${e}`);
                         });
                     }
                     else {
                         atem.changeProgramInput(inputId, payload.ME).then(() => {
-                            callback(true, {});
-                        }).catch(() => {
-                            callback(false);
+                            callback(true, `Program input changed on ME ${payload.ME} to input ${inputId}`);
+                        }).catch((e) => {
+                            callback(false, `Failed to set program input on ME ${payload.ME} to input ${inputId}: ${e}`);
                         });
                     }
 

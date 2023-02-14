@@ -88,7 +88,8 @@ module.exports = function (RED) {
         }
         else {
           node.status({ fill: "red", shape: "dot", text: `There was a problem` });
-          node.error(`There was a problem: ${msg}`);
+          node.error(`There was a problem: ${msg.payload}`);
+          node.send(msg);
         }
       });
     });
