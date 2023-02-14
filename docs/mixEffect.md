@@ -2,6 +2,45 @@
 Will control aspects of a mix effect block
 
 # Actions
+## Change the Program Input
+This will change the program input on a ME
+```javascript
+{
+    {
+        topic: "changeProgramInput",
+        payload: {
+            ME: 1, //The ME to change on, starting from ME 0
+
+            //The input to set (only one required)
+            inputId: 0, 
+            inputLongName: "input",
+            inputShortName: "in",
+            ////
+        }
+    }
+}
+```
+
+## Change the Preview Input
+This will change the preview input on a ME
+```javascript
+{
+    {
+        topic: "changePreviewInput",
+        payload: {
+            ME: 1, //The ME to change on, starting from ME 1
+
+            //The input to set (only one required)
+            inputId: 0, 
+            inputLongName: "input",
+            inputShortName: "in",
+            ////
+        }
+    }
+}
+```
+
+
 ## Auto Transition
 This will perform an auto transition on an ME
 ```javascript
@@ -57,24 +96,50 @@ This will set a transition position to a ME
 
 
 # Output
-## Macro Properties
+## Program Input
 ```javascript
 {
     {
         topic: "function",
         payload: {
-            function: "macroProperties",
+            function: "programInput",
             data: {
-                isUsed: true/false,
-                hasUnsupportedOps: true/false,
-                name: "Macro",
-                description: "This is a macro",
-                macroId: 0
+                ME: {
+                    //The ME
+                }
+                input: {
+                    //The input that was selected
+                }
             }, 
             state: {
                 // The state object
             }, 
-            pathToChange: "macro.macroProperties.0" // Where the change came from specifically
+            pathToChange: "video.mixEffects.1.programInput" // Where the change came from specifically
         }
     }
 }
+```
+
+## Preview Input
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "previewInput",
+            data: {
+                ME: {
+                    //The ME
+                }
+                input: {
+                    //The input that was selected
+                }
+            }, 
+            state: {
+                // The state object
+            }, 
+            pathToChange: "video.mixEffects.1.previewInput" // Where the change came from specifically
+        }
+    }
+}
+```

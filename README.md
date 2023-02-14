@@ -5,9 +5,11 @@ This package provides an interface between [BlackMagic ATEM](Blackmagic) switche
 # What's Supported?
 * Direct control with [ATEM Connection](https://github.com/nrkno/sofie-atem-connection) with topics like stateChanged
 * [Getting Status](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/getters.md)
-* [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/previewInput.md)
-* [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/programInput.md)
+* [Program Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/mixEffect.md)
+* [Preview Input](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/mixEffect.md)
 * [Macros](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/macro.md)
+* [Transitions](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/mixEffect.md)
+* [Fade To Black](https://github.com/haydendonald/atem-connection-nodered/blob/main/docs/mixEffect.md)
 
 
 # Input messages
