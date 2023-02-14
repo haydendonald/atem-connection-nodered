@@ -29,7 +29,7 @@ module.exports = function () {
                 case "changePreviewInput":
                 case "changeProgramInput": {
                     //Validate
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
@@ -82,7 +82,7 @@ module.exports = function () {
                     return true;
                 }
                 case "autoTransition": {
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
@@ -96,7 +96,7 @@ module.exports = function () {
                     return true;
                 }
                 case "cut": {
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
@@ -110,7 +110,7 @@ module.exports = function () {
                     return true;
                 }
                 case "fadeToBlack": {
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
@@ -124,7 +124,7 @@ module.exports = function () {
                     return true;
                 }
                 case "setTransitionPosition": {
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
@@ -148,7 +148,7 @@ module.exports = function () {
                 }
                 //Get a mix effect block's current state
                 case "getMixEffectBlock": {
-                    var MEValidation = validateME(payload.ME);
+                    var MEValidation = this.validateME(payload.ME);
                     if (MEValidation != true) {
                         callback(false, MEValidation);
                         return true;
