@@ -41,24 +41,49 @@ This will continue all stopped macros
 ```
 
 # Output
+## Macro Properties
 ```javascript
 {
     {
         topic: "function",
         payload: {
-            function: "macro",
+            function: "macroProperties",
             data: {
-                ME: {
-                    //The ME
-                }
-                input: {
-                    //The input that was selected
+                isUsed: true/false,
+                hasUnsupportedOps: true/false,
+                name: "Macro",
+                description: "This is a macro",
+                macroId: 0
+            }, 
+            state: {
+                // The state object
+            }, 
+            pathToChange: "macro.macroProperties.0" // Where the change came from specifically
+        }
+    }
+}
+```
+## Macro Status
+This is not working correctly! There is an issue with atem-connection's population of macro state
+```javascript
+{
+    {
+        topic: "function",
+        payload: {
+            function: "macroStatus",
+            data: {
+                isRunning: true/false,
+                isWaiting: true/false,
+                loop: true/false,
+                macroIndex: 0,
+                macro: {
+                    //The macro object
                 }
             }, 
             state: {
                 // The state object
             }, 
-            pathToChange: "video.mixEffects.1.programInput" // Where the change came from specifically
+            pathToChange: "macro.macroPlayer" // Where the change came from specifically
         }
     }
 }

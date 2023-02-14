@@ -60,7 +60,7 @@ module.exports = function () {
             if (pathToChange.includes("macro")) {
                 if (pathToChange.includes(".macroProperties")) {
                     var data = state.macro.macroProperties[pathToChange.split('.')[2]];
-                    data.macroId = pathToChange.split('.')[2];
+                    data.macroId = parseInt(pathToChange.split('.')[2]);
                     return {
                         func: "macroProperties",
                         data
@@ -69,7 +69,7 @@ module.exports = function () {
                 else if (pathToChange.includes(".macroPlayer")) {
                     var data = state.macro.macroPlayer;
                     data.notes = "As of development, this doesn't seem to work correctly in the atem-connection project but it's implemented here incase they fix it";
-                    data.macro = state.macro.macroPlayer[state.macro.macroPlayer.macroIndex];
+                    data.macro = state.macro.macroProperties[state.macro.macroPlayer.macroIndex];
                     return {
                         func: "macroStatus",
                         data
